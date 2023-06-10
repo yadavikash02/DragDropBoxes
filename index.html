@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .box{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .container {
+      width: 200px;
+      height: 230px;
+      border: 1px solid rgb(172, 100, 100);
+      padding: 10px;
+      margin: 10px;
+      border-radius: 10px;
+      overflow: hidden;
+      /* float: left; */
+    }
+    
+    .item {
+      width: 150px;
+      height: 30px;
+      background-color: #d1b5b5;
+      margin: 5px;
+      padding: 10px;
+      cursor: move;
+    }
+    
+    #reset-btn {
+      display: block;
+      width: 100%;
+      max-width: 150px;
+      margin: 0 auto;
+      cursor: pointer;
+      height: 40px;
+      align-items: center;
+      background-color: orange;
+      color: white;
+      font-size: 20  px;
+      border: 2px solid rgb(200,200,200);
+      /* width: 80px; */
+      border-radius: 10px ;
+      /* margin-top: 10px; */
+    }
+    /* @media (min-width: 768px) {
+      .container {
+        float: left;
+        margin-right: 20px;
+      }
+    } */
+
+  </style>
+</head>
+<body>
+  <div class="box">
+  <div class="container" id="container1" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <div class="item" id="item1" draggable="true" ondragstart="drag(event)">Item 1</div>
+    <div class="item" id="item2" draggable="true" ondragstart="drag(event)">Item 2</div>
+    <div class="item" id="item3" draggable="true" ondragstart="drag(event)">Item 3</div>
+    <div class="item" id="item3" draggable="true" ondragstart="drag(event)">Item 4</div>
+  </div>
+  
+  <div class="container" id="container2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+</div>
+  
+  <button id="reset-btn" onclick="resetContainers()">Reset</button>
+  
+  <script>
+    function allowDrop(event) {
+      event.preventDefault();
+    }
+    
+    function drag(event) {
+      event.dataTransfer.setData("text", event.target.id);
+    }
+    
+    function drop(event) {
+      event.preventDefault();
+      let data = event.dataTransfer.getData("text");
+      event.target.appendChild(document.getElementById(data));
+    }
+    
+    function resetContainers() {
+      let container1 = document.getElementById('container1');
+      let container2 = document.getElementById('container2');
+      // event.preventDefault();
+      // let data = event.dataTransfer.getData("text");
+      // event.target.appendChild(document.getElementById(data));
+      
+      while (container2.firstChild) {
+        container1.appendChild(container2.firstChild);
+      }
+      
+      container2.innerHTML = "";
+    }
+  </script>
+</body>
+</html>
